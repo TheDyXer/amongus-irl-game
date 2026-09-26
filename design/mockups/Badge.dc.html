@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Printable QR badge</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&amp;family=Barlow:wght@500;700&amp;family=Luckiest+Guy&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff;font-family:'Barlow',sans-serif;color:#0b0e13}
+</style>
+</helmet>
+<div style="width: 480px; height: 600px; position: relative; overflow: hidden; box-sizing: border-box; padding: 26px; background: #ffffff; border: 3px dashed #8a939e; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 14px; color: #0b0e13; font-family: 'Barlow', sans-serif">
+  <div style="align-self: stretch; display: flex; justify-content: space-between; align-items: baseline; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 3px">
+    <span>AMONG US IRL</span>
+    <span style="margin-right: -3px">BADGE</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px">
+    <svg viewBox="0 0 100 124" aria-hidden="true" style="width: 72px; height: 89px; display: block; flex: none; overflow: visible">
+      <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="#ffffff" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+      <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#ffffff"></path>
+      <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#d9dde3"></path>
+      <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+      <rect x="50" y="24" width="48" height="28" rx="14" fill="#ffffff" stroke="#0b0e13" stroke-width="6"></rect>
+      <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+    </svg>
+    <div style="font-family: 'Luckiest Guy', sans-serif; font-size: 116px; line-height: 1; color: #0b0e13">07</div>
+  </div>
+  <svg viewBox="-2 -2 33 33" shape-rendering="crispEdges" role="img" aria-label="QR code for badge 07" style="width: 297px; height: 297px; display: block; flex: none">
+    <path d="{{ qr }}" fill="#0b0e13"></path>
+  </svg>
+  <div style="font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 18px; text-align: center">Wear on your back. No photos of badges.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":480,"height":600}}'>
+class Component extends DCLogic {
+  rng(seed) {
+    let x = seed;
+    return () => {
+      x = (x * 16807) % 2147483647;
+      return (x - 1) / 2147483646;
+    };
+  }
+  qrPath(seed) {
+    const n = 29;
+    const r = this.rng(seed);
+    const cells = [];
+    const finder = (r0, c0) => {
+      for (let i = 0; i < 7; i++) {
+        for (let j = 0; j < 7; j++) {
+          const edge = i === 0 || i === 6 || j === 0 || j === 6;
+          const core = i >= 2 && i <= 4 && j >= 2 && j <= 4;
+          if (edge || core) cells.push([r0 + i, c0 + j]);
+        }
+      }
+    };
+    finder(0, 0);
+    finder(0, n - 7);
+    finder(n - 7, 0);
+    const reserved = (i, j) => (i < 8 && j < 8) || (i < 8 && j >= n - 8) || (i >= n - 8 && j < 8);
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        if (reserved(i, j)) continue;
+        if (i === 6 || j === 6) {
+          if ((i + j) % 2 === 0) cells.push([i, j]);
+          continue;
+        }
+        if (r() < 0.48) cells.push([i, j]);
+      }
+    }
+    return cells.map((c) => 'M' + c[1] + ' ' + c[0] + 'h1v1h-1z').join('');
+  }
+  renderVals() {
+    return {
+      qr: this.qrPath(23)
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Game-master console</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&amp;family=Barlow:wght@500;700&amp;family=Lilita+One&amp;family=VT323&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0b0f16;font-family:'Barlow',sans-serif;color:#e9eef6}
+.tv-static{background-color:#777;background-image:url(/_blob/88695a77f1f20842359e6abf8e941f8e);background-size:384px 384px;image-rendering:pixelated;animation:tvstatic .32s steps(1) infinite}
+@keyframes tvstatic{0%{background-position:0 0}20%{background-position:-57px 31px}40%{background-position:83px -44px}60%{background-position:-21px -97px}80%{background-position:66px 72px}100%{background-position:0 0}}
+.scan{background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 2px,rgba(0,0,0,0) 2px 4px)}
+.flash{animation:flash .9s steps(1) infinite}
+@keyframes flash{0%{opacity:1}50%{opacity:0}}
+.pulse{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{border-color:#8CFFFF}50%{border-color:#35707a}}
+.field::placeholder{color:#7f8a9b;opacity:1}
+button:focus-visible,input:focus-visible{outline:3px solid #8CFFFF;outline-offset:2px}
+.vol{-webkit-appearance:none;appearance:none;display:block;width:100%;height:44px;margin:0;background:transparent;cursor:pointer}
+.vol::-webkit-slider-runnable-track{height:8px;border:3px solid #0b0e13;border-radius:7px;background:#2b3445}
+.vol::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-9px;border:3px solid #0b0e13;border-radius:50%;background:#8CFFFF}
+.vol::-moz-range-track{height:8px;border:3px solid #0b0e13;border-radius:7px;background:#2b3445}
+.vol::-moz-range-progress{height:8px;border-radius:4px;background:#8CFFFF}
+.vol::-moz-range-thumb{width:20px;height:20px;border:3px solid #0b0e13;border-radius:50%;background:#8CFFFF}
+@media (prefers-reduced-motion:reduce){.tv-static,.flash,.pulse{animation:none}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; position: relative; overflow: hidden; display: flex; background: #0b0f16; color: #e9eef6; font-family: 'Barlow', sans-serif">
+  <aside style="width: 240px; height: 900px; flex: none; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #10151f; border-right: 4px solid #0b0e13">
+    <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 8px">
+      <div style="font-family: 'Lilita One', sans-serif; font-size: 30px; line-height: 1.05; color: #ffffff">GAME MASTER</div>
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; line-height: 18px; color: #a9b4c3">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 16px; height: 16px; flex: none">
+          <path d="M5 11 H19 V21 H5 Z M8 11 V7 a4 4 0 0 1 7.7 -1.5" fill="none" stroke="#a9b4c3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>PIN unlocked</span>
+      </div>
+    </div>
+    <nav aria-label="Console sections" style="display: flex; flex-direction: column; gap: 8px">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+        <button aria-current="{{ n.cur }}" style="display: flex; align-items: center; gap: 12px; width: 100%; height: 48px; box-sizing: border-box; padding: 0 14px; border: 3px solid #0b0e13; border-radius: 12px; background: {{n.bg}}; color: {{n.fg}}; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 2px; text-align: left; cursor: pointer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; flex: none">
+            <path d="{{ n.icon }}" fill="none" stroke="{{ n.fg }}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>{{ n.label }}</span>
+        </button>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding-top: 16px; border-top: 3px solid #1a2130; display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 2px; color: #a9b4c3">LANGUAGE</span>
+        <div role="group" aria-label="Language" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr))">
+          <sc-for list="{{ langs }}" as="l" hint-placeholder-count="2">
+            <button aria-pressed="{{ l.pressed }}" style="height: 44px; margin-left: {{l.ml}}; border: 3px solid #0b0e13; border-radius: {{l.radius}}; background: {{l.bg}}; color: {{l.fg}}; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 2px; cursor: pointer">{{ l.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between">
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 2px; color: #a9b4c3">VOLUME</span>
+          <span style="font-family: 'VT323', monospace; font-size: 20px; line-height: 1; color: #e9eef6">70%</span>
+        </div>
+        <input class="vol" type="range" min="0" max="100" value="70" aria-label="Master volume">
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; min-height: 28px">
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 2px; color: #a9b4c3">CAMS</span>
+        <span style="display: inline-flex; align-items: center; height: 26px; box-sizing: border-box; padding: 0 12px; border: 2px solid #0b0e13; border-radius: 999px; background: #43d15d; color: #07210e; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 2px">ON</span>
+      </div>
+    </div>
+  </aside>
+  <main style="flex: 1; min-width: 0; height: 900px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+    <header style="flex: none; height: 36px; display: flex; align-items: center; gap: 12px">
+      <h1 style="margin: 0 6px 0 0; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: 3px; color: #ffffff">SETUP</h1>
+      <span style="display: inline-flex; align-items: center; gap: 8px; height: 32px; box-sizing: border-box; padding: 0 14px; background: #1a2130; border: 2px solid #0b0e13; border-radius: 999px; font-family: 'VT323', monospace; font-size: 22px; line-height: 1; color: #e9eef6">
+        <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 18px; height: 18px; flex: none">
+          <path d="M3.5 9.5 a12 12 0 0 1 17 0 M6.8 13 a7.5 7.5 0 0 1 10.4 0 M12 17.5 h.01" fill="none" stroke="#8CFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>192.168.11.220:8740</span>
+      </span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; height: 32px; box-sizing: border-box; padding: 0 14px; background: #1a2130; border: 2px solid #0b0e13; border-radius: 999px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 1.5px; color: #e9eef6">
+        <span style="width: 10px; height: 10px; box-sizing: border-box; border: 2px solid #0b0e13; border-radius: 50%; background: #43d15d"></span>
+        <span>3 SCREENS ONLINE</span>
+      </span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; height: 32px; box-sizing: border-box; padding: 0 14px; background: #1a2130; border: 2px solid #0b0e13; border-radius: 999px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 1.5px; color: #e9eef6">
+        <span style="width: 10px; height: 10px; box-sizing: border-box; border: 2px solid #0b0e13; border-radius: 50%; background: #ffb020"></span>
+        <span>2 OF 3 CAMS LIVE</span>
+      </span>
+    </header>
+    <div style="flex: none; height: 456px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px">
+      <section style="min-width: 0; min-height: 0; box-sizing: border-box; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #10151f; border: 4px solid #0b0e13; border-radius: 18px">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 2px">
+          <h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; line-height: 26px; letter-spacing: 3px; color: #ffffff">CAMERAS</h2>
+          <p style="margin: 0; font-size: 14px; line-height: 18px; color: #a9b4c3">Phones announce themselves on the Wi-Fi. Assign each one to a slot once.</p>
+        </div>
+        <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 10px">
+          <sc-for list="{{ cams }}" as="c" hint-placeholder-count="4">
+            <div style="min-width: 0; min-height: 0; box-sizing: border-box; padding: 8px 10px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; background: #141a24; border: 3px solid #0b0e13; border-radius: 14px">
+              <div style="display: flex; gap: 10px">
+                <div style="position: relative; width: 112px; height: 63px; flex: none; box-sizing: border-box; overflow: hidden; border: 2px {{c.frame}}; border-radius: 8px; background: {{c.thumbBg}}">
+                  <sc-if value="{{ c.live }}" hint-placeholder-val="{{ true }}">
+                    <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
+                      <rect x="0" y="0" width="320" height="180" fill="{{c.floor}}"></rect>
+                      <path d="M0 118 H320 M0 146 H320 M70 72 L34 180 M150 72 L146 180 M230 72 L258 180" stroke="{{c.line}}" stroke-width="4" fill="none"></path>
+                      <rect x="0" y="0" width="320" height="72" fill="{{c.wall}}"></rect>
+                      <rect x="0" y="66" width="320" height="8" fill="#1a2028"></rect>
+                      <rect x="{{c.doorX}}" y="12" width="58" height="56" rx="4" fill="{{c.door}}" stroke="#0b0e13" stroke-width="4"></rect>
+                      <rect x="{{c.doorX}}" y="34" width="58" height="7" fill="#e0b02a"></rect>
+                      <rect x="{{c.panelX}}" y="18" width="64" height="32" rx="4" fill="#232b35" stroke="#0b0e13" stroke-width="4"></rect>
+                      <circle cx="{{c.lightX}}" cy="34" r="6" fill="#58f07a"></circle>
+                      <g transform="translate({{c.px}} 64) scale(0.78)">
+                        <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="{{c.c}}" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                        <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{c.c}}"></path>
+                        <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{c.s}}"></path>
+                        <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                        <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+                        <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+                      </g>
+                    </svg>
+                    <div class="scan" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0"></div>
+                    <div style="position: absolute; left: 4px; top: 4px; display: flex; align-items: center; gap: 4px; padding: 0 5px; background: #0b0e13; border-radius: 4px; font-family: 'VT323', monospace; font-size: 14px; line-height: 15px; color: #e9eef6">
+                      <span class="flash" style="width: 6px; height: 6px; border-radius: 50%; background: #ff3b30"></span>
+                      <span>REC</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ c.lost }}" hint-placeholder-val="{{ false }}">
+                    <div class="tv-static" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-size: 160px 160px"></div>
+                    <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center">
+                      <span class="flash" style="padding: 0 6px; background: #0b0e13; font-family: 'VT323', monospace; font-size: 17px; line-height: 19px; color: #e9eef6">SIGNAL LOST</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ c.empty }}" hint-placeholder-val="{{ false }}">
+                    <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 30px; height: 30px">
+                        <path d="M4 8 H8 L10 5 H14 L16 8 H20 V18 H4 Z M9 13 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0" fill="none" stroke="#4e5a6c" stroke-width="2" stroke-linejoin="round"></path>
+                      </svg>
+                    </div>
+                  </sc-if>
+                </div>
+                <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+                  <div style="height: 24px; display: flex; align-items: center; justify-content: space-between; gap: 8px">
+                    <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 2px; color: #ffffff; white-space: nowrap">CAM {{ c.n }}</span>
+                    <span style="display: inline-flex; align-items: center; height: 22px; box-sizing: border-box; padding: 0 8px; border: 2px solid #0b0e13; border-radius: 999px; background: {{c.pillBg}}; color: {{c.pillFg}}; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 1px; white-space: nowrap">{{ c.status }}</span>
+                  </div>
+                  <div style="font-weight: 700; font-size: 15px; line-height: 18px; color: #e9eef6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis"><span style="font-weight: 500; font-size: 13px; color: #a9b4c3">{{ c.pre }}</span>{{ c.device }}</div>
+                  <div style="font-family: 'VT323', monospace; font-size: 18px; line-height: 18px; color: #d5dde8">{{ c.ip }}</div>
+                </div>
+              </div>
+              <div style="display: flex">
+                <sc-if value="{{ c.assigned }}" hint-placeholder-val="{{ true }}">
+                  <div style="display: flex; flex-direction: column; gap: 2px">
+                    <sc-for list="{{ c.lines }}" as="ln" hint-placeholder-count="2">
+                      <div style="font-size: 13px; line-height: 16px; color: {{ln.c}}">{{ ln.t }}</div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ c.empty }}" hint-placeholder-val="{{ false }}">
+                  <button style="height: 44px; padding: 0 16px; border: 3px solid #0b0e13; border-radius: 12px; background: #8CFFFF; color: #07131a; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 1.5px; cursor: pointer">ASSIGN HERE</button>
+                </sc-if>
+              </div>
+              <div>
+                <sc-if value="{{ c.assigned }}" hint-placeholder-val="{{ true }}">
+                  <label style="display: flex; align-items: center; gap: 8px; min-height: 44px">
+                    <span style="flex: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 1.5px; color: #a9b4c3">ROOM PLATE</span>
+                    <input class="field" type="text" value="{{ c.plate }}" style="flex: 1; min-width: 0; height: 36px; box-sizing: border-box; padding: 0 10px; background: #0b0f16; border: 2px solid #2b3445; border-radius: 8px; color: #e9eef6; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 2px; text-transform: uppercase">
+                  </label>
+                </sc-if>
+                <sc-if value="{{ c.empty }}" hint-placeholder-val="{{ false }}">
+                  <label style="display: flex; align-items: center; gap: 8px; min-height: 44px">
+                    <span style="flex: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 1.5px; color: #a9b4c3">ADD BY IP</span>
+                    <input class="field" type="text" placeholder="192.168.11.x" style="flex: 1; min-width: 0; height: 36px; box-sizing: border-box; padding: 0 10px; background: #0b0f16; border: 2px solid #2b3445; border-radius: 8px; color: #e9eef6; font-family: 'VT323', monospace; font-size: 20px">
+                  </label>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <section style="min-width: 0; min-height: 0; box-sizing: border-box; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #10151f; border: 4px solid #0b0e13; border-radius: 18px">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 2px">
+          <h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; line-height: 26px; letter-spacing: 3px; color: #ffffff">SCREENS</h2>
+          <p style="margin: 0; font-size: 14px; line-height: 18px; color: #a9b4c3">Paired devices and what they show.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <sc-for list="{{ screens }}" as="d" hint-placeholder-count="4">
+            <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) 150px 68px; align-items: center; column-gap: 10px; min-height: 40px; box-sizing: border-box; padding: 3px 10px; background: #141a24; border: 3px solid #0b0e13; border-radius: 12px">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 24px; height: 24px; display: block">
+                <path d="{{ d.icon }}" fill="none" stroke="{{ d.iconC }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <div style="min-width: 0; display: flex; flex-direction: column; gap: 1px">
+                <span style="font-weight: 700; font-size: 16px; line-height: 19px; color: {{d.nameC}}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ d.name }}</span>
+                <sc-if value="{{ d.hasMode }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-family: 'VT323', monospace; font-size: 17px; line-height: 16px; color: #c9d3e1">{{ d.mode }}</span>
+                </sc-if>
+              </div>
+              <span style="justify-self: start; display: inline-flex; align-items: center; height: 24px; box-sizing: border-box; padding: 0 9px; border: 2px solid #0b0e13; border-radius: 999px; background: #1a2130; color: {{d.viewC}}; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 1px; white-space: nowrap">{{ d.view }}</span>
+              <span style="justify-self: end; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; color: {{d.stC}}">
+                <span style="width: 10px; height: 10px; box-sizing: border-box; border: 2px solid {{d.dotLine}}; border-radius: 50%; background: {{d.dot}}"></span>
+                <span>{{ d.st }}</span>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+        <div class="pulse" style="margin-top: auto; box-sizing: border-box; padding: 10px; display: flex; flex-direction: column; gap: 8px; background: #141a24; border: 3px dashed #8CFFFF; border-radius: 14px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+            <div style="min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; line-height: 19px; letter-spacing: 2px; color: #ffffff">NEW SCREEN WANTS TO PAIR</span>
+              <span style="font-size: 13px; line-height: 16px; color: #a9b4c3">Same code on its display? Pick a view.</span>
+            </div>
+            <span style="flex: none; font-family: 'VT323', monospace; font-size: 44px; line-height: 40px; letter-spacing: 6px; color: #8CFFFF">KQZT</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{ pairButtons }}" as="b" hint-placeholder-count="5">
+              <button style="grid-column: {{b.col}}; height: 44px; padding: 0 10px; border: 3px solid #0b0e13; border-radius: 10px; background: {{b.bg}}; color: {{b.fg}}; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 1px; cursor: pointer">{{ b.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px">
+      <section style="min-width: 0; min-height: 0; box-sizing: border-box; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #10151f; border: 4px solid #0b0e13; border-radius: 18px">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 2px">
+          <h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; line-height: 26px; letter-spacing: 3px; color: #ffffff">PLAYERS <span style="font-family: 'VT323', monospace; font-size: 26px; letter-spacing: 0; color: #8CFFFF">7</span></h2>
+          <p style="margin: 0; font-size: 14px; line-height: 18px; color: #a9b4c3">GM view: roles visible</p>
+        </div>
+        <div style="flex: 1; min-height: 0; display: grid; grid-template-rows: repeat(7, minmax(0, 1fr)); gap: 4px">
+          <sc-for list="{{ players }}" as="p" hint-placeholder-count="7">
+            <div style="min-height: 0; display: grid; grid-template-columns: 24px minmax(0, 1fr) 92px 60px 86px 164px; align-items: center; column-gap: 14px; box-sizing: border-box; padding: 0 12px; background: #141a24; border: 2px solid #0b0e13; border-radius: 10px">
+              <svg viewBox="0 0 100 124" aria-hidden="true" style="width: 24px; height: 30px; display: block; opacity: {{p.op}}">
+                <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="{{p.c}}" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{p.c}}"></path>
+                <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{p.s}}"></path>
+                <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+                <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+              </svg>
+              <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 1px; color: {{p.nameC}}; white-space: nowrap">{{ p.name }}</span>
+              <span style="justify-self: start; display: inline-flex; align-items: center; height: 22px; box-sizing: border-box; padding: 0 8px; border: 2px solid #0b0e13; border-radius: 999px; background: {{p.roleBg}}; color: {{p.roleFg}}; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 1.5px">{{ p.role }}</span>
+              <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 1.5px; color: {{p.stateC}}">{{ p.state }}</span>
+              <span style="font-family: 'VT323', monospace; font-size: 19px; line-height: 1; color: #d5dde8; white-space: nowrap">BADGE {{ p.badge }}</span>
+              <div style="display: flex; align-items: center; gap: 8px">
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 1.5px; color: #a9b4c3">TASKS</span>
+                <div style="display: flex; gap: 3px">
+                  <sc-for list="{{ p.segs }}" as="sg" hint-placeholder-count="4">
+                    <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #0b0e13; border-radius: 3px; background: {{sg.bg}}"></span>
+                  </sc-for>
+                </div>
+                <span style="font-family: 'VT323', monospace; font-size: 19px; line-height: 1; color: {{p.taskC}}">{{ p.tasks }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <section style="min-width: 0; min-height: 0; box-sizing: border-box; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #10151f; border: 4px solid #0b0e13; border-radius: 18px">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 2px">
+          <h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; line-height: 26px; letter-spacing: 3px; color: #ffffff">GAME</h2>
+          <p style="margin: 0; font-size: 14px; line-height: 18px; color: #a9b4c3">In progress · 7 players · 2 impostors</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+          <sc-for list="{{ gameButtons }}" as="g" hint-placeholder-count="6">
+            <button style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 52px; box-sizing: border-box; padding: 0 10px; border: 3px solid #0b0e13; border-radius: 12px; background: {{g.bg}}; color: {{g.fg}}; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 1px; cursor: pointer">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; flex: none">
+                <path d="{{ g.icon }}" fill="none" stroke="{{ g.fg }}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span>{{ g.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <p style="margin: auto 0 0; padding-top: 10px; border-top: 2px solid #1a2130; font-size: 15px; line-height: 21px; color: #c9d3e1">Kill cooldown 60 s · Sabotage cooldown 60 s · Discussion 90 s · Voting 60 s · 4 tasks per crewmate · Confirm ejects on</p>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tone = (on) => (on ? { bg: '#8CFFFF', fg: '#07131a' } : { bg: '#1a2130', fg: '#e9eef6' });
+    const nav = [
+      { label: 'SETUP', on: true, icon: 'M4 6 H9 M13 6 H20 M11 3.5 V8.5 M4 12 H14 M18 12 H20 M16 9.5 V14.5 M4 18 H6 M10 18 H20 M8 15.5 V20.5' },
+      { label: 'LIVE GAME', on: false, icon: 'M12 12 h.01 M8.5 8.5 a5 5 0 0 0 0 7 M15.5 8.5 a5 5 0 0 1 0 7 M5.5 5.5 a9 9 0 0 0 0 13 M18.5 5.5 a9 9 0 0 1 0 13' },
+      { label: 'PRINT SHEETS', on: false, icon: 'M7 9 V3 H17 V9 M7 17 H4 V9 H20 V17 H17 M7 14 H17 V21 H7 Z' },
+      { label: 'SETTINGS', on: false, icon: 'M9 12 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0 M12 2.5 V5.5 M12 18.5 V21.5 M2.5 12 H5.5 M18.5 12 H21.5 M5.3 5.3 L7.4 7.4 M16.6 16.6 L18.7 18.7 M5.3 18.7 L7.4 16.6 M16.6 7.4 L18.7 5.3' }
+    ].map((n) => Object.assign({ label: n.label, icon: n.icon, cur: n.on ? 'page' : 'false' }, tone(n.on)));
+    const langs = [
+      { label: 'EN', on: true, radius: '12px 0 0 12px', ml: '0' },
+      { label: 'HU', on: false, radius: '0 12px 12px 0', ml: '-3px' }
+    ].map((l) => Object.assign({ label: l.label, pressed: l.on ? 'true' : 'false', radius: l.radius, ml: l.ml }, tone(l.on)));
+    const pills = {
+      live: { pillBg: '#43d15d', pillFg: '#07210e' },
+      lost: { pillBg: '#ffb020', pillFg: '#231500' },
+      empty: { pillBg: '#2b3445', pillFg: '#e9eef6' }
+    };
+    const cams = [
+      {
+        n: 1, kind: 'live', status: 'LIVE', device: 'Galaxy A55', ip: '192.168.11.252', plate: 'NAVIGATION',
+        lines: [{ t: 'Battery 92% · charging', c: '#c9d3e1' }, { t: 'Flashlight: needs DroidCam Pro', c: '#ffb020' }],
+        floor: '#5f6f7c', wall: '#34414f', door: '#7b8a99', line: '#53626e', doorX: 212, panelX: 44, lightX: 60, px: 128, c: '#C61111', s: '#7A0838'
+      },
+      {
+        n: 2, kind: 'live', status: 'LIVE', device: 'Pixel 4a', ip: '192.168.11.57', plate: 'ADMIN',
+        lines: [{ t: 'Battery 64% · charging', c: '#c9d3e1' }, { t: 'Flashlight: ready', c: '#58f07a' }],
+        floor: '#6c7566', wall: '#3d4538', door: '#8a9380', line: '#5e6658', doorX: 40, panelX: 190, lightX: 206, px: 106, c: '#F6F657', s: '#C38822'
+      },
+      {
+        n: 3, kind: 'lost', status: 'SIGNAL LOST', device: 'Galaxy A12', ip: '192.168.11.61', plate: 'MEDBAY',
+        lines: [{ t: 'Last frame 6 s ago', c: '#ffb020' }]
+      },
+      { n: 4, kind: 'empty', status: 'EMPTY', device: 'Redmi Note 8', ip: '192.168.11.73', plate: '', lines: [] }
+    ].map((c) => Object.assign({
+      floor: '#05060d', wall: '#05060d', door: '#05060d', line: '#05060d',
+      doorX: 0, panelX: 0, lightX: 0, px: 0, c: '#05060d', s: '#05060d'
+    }, c, pills[c.kind], {
+      live: c.kind === 'live',
+      lost: c.kind === 'lost',
+      empty: c.kind === 'empty',
+      assigned: c.kind !== 'empty',
+      pre: c.kind === 'empty' ? 'Discovered: ' : '',
+      frame: c.kind === 'empty' ? 'dashed #3a4558' : 'solid #0b0e13',
+      thumbBg: c.kind === 'empty' ? '#0b0f16' : '#05060d'
+    }));
+    const screens = [
+      { name: 'Laptop', view: 'SECURITY STATION', on: true, icon: 'M5 6 H19 V15 H5 Z M3 18.5 H21' },
+      { name: 'Living-room TV', view: 'SPECTATOR WALL', mode: 'TV MODE 15 FPS', on: true, icon: 'M3 5 H21 V16 H3 Z M8 20 H16 M12 16 V20' },
+      { name: 'Old tablet', view: 'COMMS FIX', on: true, icon: 'M6 3 H18 V21 H6 Z M11 18 H13' },
+      { name: 'Spare tablet', view: 'EMERGENCY BUTTON', on: false, icon: 'M6 3 H18 V21 H6 Z M11 18 H13' }
+    ].map((d) => ({
+      name: d.name,
+      view: d.view,
+      icon: d.icon,
+      mode: d.mode || '',
+      hasMode: Boolean(d.mode),
+      st: d.on ? 'online' : 'offline',
+      stC: d.on ? '#58f07a' : '#a9b4c3',
+      dot: d.on ? '#43d15d' : '#0b0f16',
+      dotLine: d.on ? '#0b0e13' : '#a9b4c3',
+      nameC: d.on ? '#e9eef6' : '#a9b4c3',
+      viewC: d.on ? '#e9eef6' : '#a9b4c3',
+      iconC: d.on ? '#c9d3e1' : '#4e5a6c'
+    }));
+    const pairButtons = ['SECURITY', 'SPECTATOR', 'COMMS', 'EMERGENCY']
+      .map((v) => ({ label: v, bg: '#2b3445', fg: '#e9eef6', col: 'auto' }))
+      .concat([{ label: 'REJECT', bg: '#2a0b0b', fg: '#ff3b30', col: '3' }]);
+    const players = [
+      { name: 'PLAYER 1', c: '#C61111', s: '#7A0838', imp: false, dead: false, badge: '01', done: 4 },
+      { name: 'PLAYER 2', c: '#132ED2', s: '#09158E', imp: true, dead: false, badge: '02', done: 0 },
+      { name: 'PLAYER 3', c: '#50F039', s: '#15A842', imp: false, dead: false, badge: '07', done: 2 },
+      { name: 'PLAYER 4', c: '#EE54BB', s: '#AC2BAE', imp: false, dead: true, badge: '04', done: 2 },
+      { name: 'PLAYER 5', c: '#F07D0D', s: '#B43E15', imp: true, dead: false, badge: '05', done: 0 },
+      { name: 'PLAYER 6', c: '#F6F657', s: '#C38822', imp: false, dead: false, badge: '06', done: 3 },
+      { name: 'PLAYER 7', c: '#38FFDD', s: '#24A9BF', imp: false, dead: false, badge: '03', done: 0 }
+    ].map((p) => ({
+      name: p.name,
+      c: p.c,
+      s: p.s,
+      badge: p.badge,
+      op: p.dead ? '0.45' : '1',
+      nameC: p.dead ? '#a9b4c3' : '#e9eef6',
+      role: p.imp ? 'IMPOSTOR' : 'CREWMATE',
+      roleBg: p.imp ? '#2a0b0b' : '#0e2a33',
+      roleFg: p.imp ? '#FF1919' : '#8CFFFF',
+      state: p.dead ? 'DEAD' : 'ALIVE',
+      stateC: p.dead ? '#a9b4c3' : '#58f07a',
+      tasks: p.imp ? 'FAKE' : p.done + '/4',
+      taskC: p.imp ? '#a9b4c3' : '#e9eef6',
+      segs: [0, 1, 2, 3].map((i) => ({ bg: p.imp ? '#10151f' : i < p.done ? '#43d15d' : '#2b3445' }))
+    }));
+    const gameButtons = [
+      { label: 'PAUSE GAME', bg: '#2b3445', fg: '#e9eef6', icon: 'M9 5 V19 M15 5 V19' },
+      { label: 'CALL MEETING', bg: '#c01818', fg: '#ffffff', icon: 'M4 20 H20 M6 20 V16.5 H18 V20 M8 16.5 V13 a4 4 0 0 1 8 0 V16.5 M12 3.5 V6 M5 6.5 L6.8 8.3 M19 6.5 L17.2 8.3' },
+      { label: 'SABOTAGE COMMS', bg: '#F07D0D', fg: '#1a0d02', icon: 'M4 9.5 a12 12 0 0 1 16 0 M7 13 a7 7 0 0 1 10 0 M12 17.5 h.01 M4 4 L20 20' },
+      { label: 'CLEAR SABOTAGE', bg: '#43d15d', fg: '#07210e', icon: 'M12 3 L19 6 V11 C19 16 16 19 12 21 C8 19 5 16 5 11 V6 Z M9 12 L11 14 L15 10' },
+      { label: 'UNDO LAST KILL', bg: '#2b3445', fg: '#e9eef6', icon: 'M9 6 L4 11 L9 16 M4 11 H14 a5 5 0 0 1 0 10 H11' },
+      { label: 'END GAME', bg: '#2b3445', fg: '#e9eef6', icon: 'M6 6 H18 V18 H6 Z' }
+    ];
+    return {
+      nav: nav,
+      langs: langs,
+      cams: cams,
+      screens: screens,
+      pairButtons: pairButtons,
+      players: players,
+      gameButtons: gameButtons
+    };
+  }
+}
+</script>
+</body>
+</html>

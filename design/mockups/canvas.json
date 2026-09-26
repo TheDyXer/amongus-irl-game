@@ -1,0 +1,145 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Badge.dc.html": {
+      "h": 600,
+      "title": "Printable QR badge",
+      "w": 480,
+      "x": 2350,
+      "y": 1204
+    },
+    "Comms.dc.html": {
+      "h": 832,
+      "is_interactive": true,
+      "title": "Comms fix station",
+      "w": 1024,
+      "x": 1520,
+      "y": 2468
+    },
+    "Emergency.dc.html": {
+      "h": 832,
+      "is_interactive": true,
+      "title": "Emergency button station",
+      "w": 1024,
+      "x": 2624,
+      "y": 2468
+    },
+    "GM.dc.html": {
+      "h": 900,
+      "title": "Game-master console",
+      "w": 1440,
+      "x": 0,
+      "y": 2468
+    },
+    "Main.dc.html": {
+      "h": 784,
+      "is_interactive": true,
+      "title": "Security station (kiosk)",
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "PhoneComms.dc.html": {
+      "h": 844,
+      "title": "Phone: comms sabotaged",
+      "w": 390,
+      "x": 940,
+      "y": 1204
+    },
+    "PhoneCrew.dc.html": {
+      "h": 844,
+      "title": "Phone: crewmate",
+      "w": 390,
+      "x": 0,
+      "y": 1204
+    },
+    "PhoneGhost.dc.html": {
+      "h": 844,
+      "title": "Phone: ghost",
+      "w": 390,
+      "x": 1410,
+      "y": 1204
+    },
+    "PhoneImpostor.dc.html": {
+      "h": 844,
+      "title": "Phone: impostor",
+      "w": 390,
+      "x": 470,
+      "y": 1204
+    },
+    "PhoneVote.dc.html": {
+      "h": 908,
+      "is_interactive": true,
+      "title": "Phone: voting",
+      "w": 390,
+      "x": 1880,
+      "y": 1204
+    },
+    "Spectator.dc.html": {
+      "h": 720,
+      "title": "TV: lobby with join QR",
+      "w": 1280,
+      "x": 1360,
+      "y": 0
+    },
+    "Splash.dc.html": {
+      "h": 784,
+      "is_interactive": true,
+      "title": "Full-screen splashes",
+      "w": 1280,
+      "x": 2720,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-09-26T14:30:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "rowPhones": {
+      "kind": "title1",
+      "maxW": 2830,
+      "text": "Player phones and badge",
+      "w": 240,
+      "x": 0,
+      "y": 904
+    },
+    "rowScreens": {
+      "kind": "title1",
+      "maxW": 4000,
+      "text": "Big screens: Security station, TV, splashes",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "rowStations": {
+      "kind": "title1",
+      "maxW": 3648,
+      "text": "Game master and stations",
+      "w": 240,
+      "x": 0,
+      "y": 2168
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Spectator.dc.html",
+    "Splash.dc.html",
+    "PhoneCrew.dc.html",
+    "PhoneImpostor.dc.html",
+    "PhoneComms.dc.html",
+    "PhoneGhost.dc.html",
+    "PhoneVote.dc.html",
+    "Badge.dc.html",
+    "GM.dc.html",
+    "Comms.dc.html",
+    "Emergency.dc.html"
+  ],
+  "pages": [],
+  "title": "Among Us IRL Mock-ups"
+}

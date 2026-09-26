@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Security station</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&amp;family=Barlow:wght@500;700&amp;family=Lilita+One&amp;family=VT323&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#05060d;font-family:'Barlow',sans-serif;color:#e9eef6}
+.tv-static{background-color:#777;background-image:url(/_blob/88695a77f1f20842359e6abf8e941f8e);background-size:384px 384px;image-rendering:pixelated;animation:tvstatic .32s steps(1) infinite}
+@keyframes tvstatic{0%{background-position:0 0}20%{background-position:-57px 31px}40%{background-position:83px -44px}60%{background-position:-21px -97px}80%{background-position:66px 72px}100%{background-position:0 0}}
+.scan{background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 2px,rgba(0,0,0,0) 2px 4px)}
+.walk{animation-name:walk;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes walk{from{transform:translateX(-70px)}to{transform:translateX(380px)}}
+.bob{animation:bob .45s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+.lamp{background:#ff3b30;animation:lamp 1s steps(1) infinite}
+@keyframes lamp{0%{background:#ff3b30}50%{background:#4a1414}}
+.fade-in{animation:fadein .25s ease-out both}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.power-on{transform-origin:50% 50%;animation:poweron .25s ease-out .2s both}
+@keyframes poweron{from{transform:scaleY(.02);opacity:.5}to{transform:scaleY(1);opacity:1}}
+.flash{animation:flash .9s steps(1) infinite}
+@keyframes flash{0%{opacity:1}50%{opacity:0}}
+.use-btn{transition:transform .12s}
+.use-btn:hover{transform:scale(1.05)}
+.use-btn:active{transform:scale(.95)}
+.outlined{text-shadow:4px 0 0 #0b0e13,-4px 0 0 #0b0e13,0 4px 0 #0b0e13,0 -4px 0 #0b0e13,3px 3px 0 #0b0e13,-3px 3px 0 #0b0e13,3px -3px 0 #0b0e13,-3px -3px 0 #0b0e13,0 7px 0 #0b0e13}
+</style>
+</helmet>
+<div style="width: 1280px; height: 784px; position: relative; overflow: hidden; background: #05060d">
+  <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px; overflow: hidden; background: #2f3946">
+    <sc-if value="{{ showIdle }}" hint-placeholder-val="{{ true }}">
+      <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px">
+        <div style="position: absolute; left: 0; top: 430px; width: 1280px; height: 290px; background: #56616d"></div>
+        <svg viewBox="0 0 1280 290" style="position: absolute; left: 0; top: 430px; width: 1280px; height: 290px">
+          <path d="M0 90 H1280 M0 190 H1280 M160 0 L60 290 M420 0 L380 290 M640 0 L640 290 M860 0 L900 290 M1120 0 L1220 290" stroke="#4b5560" stroke-width="4" fill="none"></path>
+        </svg>
+        <div style="position: absolute; left: 0; top: 422px; width: 1280px; height: 14px; background: #1c232c"></div>
+        <div style="position: absolute; left: 40px; top: 36px; padding: 8px 22px; background: #141a24; border: 4px solid #0b0e13; border-radius: 12px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: 6px; color: #e9eef6">SECURITY</div>
+        <svg viewBox="0 0 760 360" style="position: absolute; left: 260px; top: 130px; width: 760px; height: 360px">
+          <rect x="150" y="20" width="460" height="208" rx="18" fill="#4e5a6c" stroke="#0b0e13" stroke-width="8"></rect>
+          <rect x="172" y="44" width="200" height="78" rx="6" fill="#0f2a2e" stroke="#0b0e13" stroke-width="5"></rect>
+          <rect x="388" y="44" width="200" height="78" rx="6" fill="#0f2a2e" stroke="#0b0e13" stroke-width="5"></rect>
+          <rect x="172" y="134" width="200" height="78" rx="6" fill="#0f2a2e" stroke="#0b0e13" stroke-width="5"></rect>
+          <rect x="388" y="134" width="200" height="78" rx="6" fill="#0f2a2e" stroke="#0b0e13" stroke-width="5"></rect>
+          <path d="M186 64 H300 M186 84 H342 M402 64 H520 M402 98 H560 M186 154 H330 M186 188 H282 M402 170 H540 M402 192 H500" stroke="#1f5c63" stroke-width="5" stroke-linecap="round" fill="none"></path>
+          <circle cx="380" cy="20" r="10" fill="#5a1616" stroke="#0b0e13" stroke-width="5"></circle>
+          <rect x="366" y="226" width="28" height="18" fill="#3a4453" stroke="#0b0e13" stroke-width="5"></rect>
+          <path d="M40 262 L720 262 L744 340 L16 340 Z" fill="#3a4453" stroke="#0b0e13" stroke-width="8" stroke-linejoin="round"></path>
+          <rect x="40" y="240" width="680" height="28" rx="8" fill="#6b7a90" stroke="#0b0e13" stroke-width="6"></rect>
+          <rect x="300" y="246" width="160" height="14" rx="4" fill="#2a313c"></rect>
+        </svg>
+        <div style="position: absolute; left: 40px; bottom: 44px; font-size: 26px; font-weight: 700; color: #d5dde8">Tap USE to watch the cameras</div>
+        <button class="use-btn" onClick="{{ openCams }}" aria-label="Use the security cameras" style="position: absolute; right: 48px; bottom: 34px; width: 190px; height: 210px; background: transparent; border: 0; padding: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px">
+          <svg viewBox="0 0 120 100" style="width: 140px; height: 117px">
+            <rect x="8" y="6" width="104" height="70" rx="10" fill="#ffffff" stroke="#0b0e13" stroke-width="7"></rect>
+            <rect x="20" y="16" width="36" height="22" rx="3" fill="#0b0e13"></rect>
+            <rect x="64" y="16" width="36" height="22" rx="3" fill="#0b0e13"></rect>
+            <rect x="20" y="44" width="36" height="22" rx="3" fill="#0b0e13"></rect>
+            <rect x="64" y="44" width="36" height="22" rx="3" fill="#0b0e13"></rect>
+            <path d="M50 76 L44 94 H76 L70 76" fill="#ffffff" stroke="#0b0e13" stroke-width="7" stroke-linejoin="round"></path>
+          </svg>
+          <span class="outlined" style="font-family: 'Lilita One', sans-serif; font-size: 56px; line-height: 1.1; color: #ffffff">USE</span>
+        </button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ showOpen }}" hint-placeholder-val="{{ false }}">
+      <div class="fade-in" style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px; background: #000000">
+        <div class="power-on" style="position: absolute; left: 90px; top: 37px; width: 1100px; height: 646px; box-sizing: border-box; background: #4e5a6c; border: 7px solid #0b0e13; border-radius: 30px; box-shadow: inset 0 8px 0 #66758b, inset 0 -10px 0 #3a4454">
+          <div class="lamp" style="position: absolute; left: 532px; top: 4px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid #0b0e13"></div>
+          <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}">
+            <div style="position: absolute; left: 26px; top: 30px; right: 26px; bottom: 26px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 16px">
+              <sc-for list="{{ feeds }}" as="f" hint-placeholder-count="4">
+                <div style="position: relative; overflow: hidden; background: #000000; border: 5px solid #0b0e13; border-radius: 10px; grid-column: {{f.col}}; grid-row: {{f.row}}">
+                  <sc-if value="{{ f.live }}" hint-placeholder-val="{{ true }}">
+                    <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
+                      <rect x="0" y="0" width="320" height="180" fill="{{f.floor}}"></rect>
+                      <path d="M0 118 H320 M0 146 H320 M70 72 L34 180 M150 72 L146 180 M230 72 L258 180" stroke="{{f.line}}" stroke-width="3" fill="none"></path>
+                      <rect x="0" y="0" width="320" height="72" fill="{{f.wall}}"></rect>
+                      <rect x="0" y="66" width="320" height="8" fill="#1a2028"></rect>
+                      <rect x="{{f.doorX}}" y="12" width="58" height="56" rx="4" fill="{{f.door}}" stroke="#0b0e13" stroke-width="3"></rect>
+                      <rect x="{{f.doorX}}" y="34" width="58" height="7" fill="#e0b02a"></rect>
+                      <rect x="{{f.panelX}}" y="18" width="64" height="32" rx="4" fill="#232b35" stroke="#0b0e13" stroke-width="3"></rect>
+                      <circle cx="{{f.lightX}}" cy="34" r="5" fill="#58f07a"></circle>
+                      <g transform="translate({{f.x2}} 94) scale(0.4)" opacity="{{f.o2}}">
+                        <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="{{f.c2}}" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                        <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{f.c2}}"></path>
+                        <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{f.s2}}"></path>
+                        <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                        <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+                        <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+                      </g>
+                      <g class="walk" style="animation-duration: {{f.dur}}; animation-delay: {{f.delay}}">
+                        <g class="bob">
+                          <g transform="translate(0 100) scale(0.42)">
+                            <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="{{f.c1}}" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                            <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{f.c1}}"></path>
+                            <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{f.s1}}"></path>
+                            <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+                            <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+                            <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <div class="scan" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0"></div>
+                  </sc-if>
+                  <sc-if value="{{ f.dead }}" hint-placeholder-val="{{ false }}">
+                    <div class="tv-static" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0"></div>
+                    <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center">
+                      <span class="flash" style="font-family: 'VT323', monospace; font-size: 46px; line-height: 1; color: {{f.msgColor}}; background: #0b0e13; border-radius: 8px; padding: 4px 16px">{{ f.msg }}</span>
+                    </div>
+                  </sc-if>
+                  <div style="position: absolute; left: 10px; top: 10px; padding: 6px 12px; background: #10151f; border: 3px solid #0b0e13; border-radius: 8px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 2px; color: #e9eef6">{{ f.room }}</div>
+                  <div style="position: absolute; left: 10px; bottom: 8px; padding: 4px 10px; background: #0b0e13; border-radius: 6px; font-family: 'VT323', monospace; font-size: 24px; line-height: 24px; color: #d6f5cf">CAM {{ f.n }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showMeeting }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; left: 26px; top: 30px; right: 26px; bottom: 26px; background: #05070a; border: 5px solid #0b0e13; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px">
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 60px; letter-spacing: 6px; color: #e9eef6">MEETING IN PROGRESS</div>
+              <div style="font-family: 'VT323', monospace; font-size: 110px; line-height: 1; color: #8CFFFF">{{ clock }}</div>
+              <div style="font-size: 24px; color: #a9b4c3">Cameras are off until the meeting ends</div>
+            </div>
+          </sc-if>
+        </div>
+        <button onClick="{{ closeCams }}" aria-label="Close cameras" style="position: absolute; left: 20px; top: 20px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: #2b3445; border: 4px solid #0b0e13; border-radius: 12px; cursor: pointer">
+          <svg viewBox="0 0 24 24" style="width: 30px; height: 30px">
+            <path d="M5 5 L19 19 M19 5 L5 19" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none"></path>
+          </svg>
+        </button>
+      </div>
+    </sc-if>
+  </div>
+  <div style="position: absolute; left: 0; top: 720px; width: 1280px; height: 64px; box-sizing: border-box; padding: 0 16px; display: flex; align-items: center; gap: 10px; background: #10151f; border-top: 3px solid #0b0e13; font-family: 'Barlow Condensed', sans-serif">
+    <span style="font-weight: 800; font-size: 17px; letter-spacing: 2px; color: #a9b4c3; margin-right: 6px">PREVIEW CONTROLS</span>
+    <span style="font-weight: 600; font-size: 19px; color: #d5dde8">Live cams</span>
+    <sc-for list="{{ camButtons }}" as="b" hint-placeholder-count="4">
+      <button onClick="{{ b.pick }}" aria-label="{{ b.aria }}" aria-pressed="{{ b.pressed }}" style="height: 44px; min-width: 44px; padding: 0 12px; border: 3px solid #0b0e13; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; background: {{b.bg}}; color: {{b.fg}}; cursor: pointer">{{ b.n }}</button>
+    </sc-for>
+    <button onClick="{{ dropCam }}" style="height: 44px; padding: 0 14px; margin-left: 8px; border: 3px solid #0b0e13; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 1px; text-transform: uppercase; background: #2b3445; color: #e9eef6; cursor: pointer">{{ dropLabel }}</button>
+    <span style="font-weight: 600; font-size: 19px; color: #d5dde8; margin-left: 12px">State</span>
+    <sc-for list="{{ modeButtons }}" as="m" hint-placeholder-count="3">
+      <button onClick="{{ m.pick }}" aria-pressed="{{ m.pressed }}" style="height: 44px; padding: 0 14px; border: 3px solid #0b0e13; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 1px; text-transform: uppercase; background: {{m.bg}}; color: {{m.fg}}; cursor: pointer">{{ m.label }}</button>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":784}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.tick = setInterval(() => {
+      const s = this.state || {};
+      if (s.mode === 'meeting') {
+        const left = typeof s.left === 'number' ? s.left : 84;
+        this.setState({ left: left > 0 ? left - 1 : 90 });
+      }
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.tick);
+    clearTimeout(this.dropTimer);
+  }
+  renderVals() {
+    const s = Object.assign({ open: false, cams: 4, mode: 'normal', dropping: 0, left: 84 }, this.state || {});
+    const rooms = [
+      { room: 'NAVIGATION', floor: '#5f6f7c', wall: '#34414f', door: '#7b8a99', line: '#53626e', c1: '#C61111', s1: '#7A0838', c2: '#38FFDD', s2: '#24A9BF', o2: 1, dur: '9s', delay: '-2s', x2: 100, doorX: 170, panelX: 44, lightX: 60 },
+      { room: 'ADMIN', floor: '#6c7566', wall: '#3d4538', door: '#8a9380', line: '#5e6658', c1: '#F6F657', s1: '#C38822', c2: '#132ED2', s2: '#09158E', o2: 1, dur: '11s', delay: '-6s', x2: 178, doorX: 96, panelX: 190, lightX: 206 },
+      { room: 'MEDBAY', floor: '#5d7475', wall: '#2f4444', door: '#7fa0a0', line: '#516667', c1: '#50F039', s1: '#15A842', c2: '#F07D0D', s2: '#B43E15', o2: 0, dur: '10s', delay: '-4s', x2: 150, doorX: 128, panelX: 236, lightX: 252 },
+      { room: 'SECURITY', floor: '#666a73', wall: '#3a3e47', door: '#8b909b', line: '#5a5e66', c1: '#F07D0D', s1: '#B43E15', c2: '#C61111', s2: '#7A0838', o2: 0, dur: '12s', delay: '-8s', x2: 40, doorX: 244, panelX: 110, lightX: 126 }
+    ];
+    const cells = {
+      1: [['1 / 5', '1 / 3']],
+      2: [['1 / 3', '1 / 3'], ['3 / 5', '1 / 3']],
+      3: [['1 / 3', '1 / 2'], ['3 / 5', '1 / 2'], ['2 / 4', '2 / 3']],
+      4: [['1 / 3', '1 / 2'], ['3 / 5', '1 / 2'], ['1 / 3', '2 / 3'], ['3 / 5', '2 / 3']]
+    };
+    const comms = s.mode === 'comms';
+    const feeds = cells[s.cams].map((c, i) => {
+      const dead = comms || s.dropping === i + 1;
+      return Object.assign({}, rooms[i], {
+        n: i + 1,
+        col: c[0],
+        row: c[1],
+        live: !dead,
+        dead: dead,
+        msg: comms ? '[COMMS DISABLED]' : 'SIGNAL LOST',
+        msgColor: comms ? '#ff3b30' : '#e9eef6'
+      });
+    });
+    const tone = (on) => (on ? { bg: '#8CFFFF', fg: '#07131a', pressed: 'true' } : { bg: '#2b3445', fg: '#e9eef6', pressed: 'false' });
+    const camButtons = [1, 2, 3, 4].map((n) => Object.assign({ n: n, aria: n + (n === 1 ? ' live cam' : ' live cams'), pick: () => { clearTimeout(this.dropTimer); this.setState({ cams: n, dropping: 0, open: true }); } }, tone(s.cams === n)));
+    const modeButtons = [
+      { id: 'normal', label: 'Normal' },
+      { id: 'comms', label: 'Comms sabotage' },
+      { id: 'meeting', label: 'Meeting' }
+    ].map((m) => Object.assign({ label: m.label, pick: () => this.setState({ mode: m.id, open: true, left: 84 }) }, tone(s.mode === m.id)));
+    const mm = Math.floor(s.left / 60);
+    const ss = s.left % 60;
+    return {
+      showIdle: !s.open,
+      showOpen: s.open,
+      showGrid: s.mode !== 'meeting',
+      showMeeting: s.mode === 'meeting',
+      feeds: feeds,
+      clock: mm + ':' + (ss < 10 ? '0' : '') + ss,
+      camButtons: camButtons,
+      modeButtons: modeButtons,
+      dropLabel: s.dropping ? 'Signal lost…' : 'Drop a cam',
+      openCams: () => this.setState({ open: true }),
+      closeCams: () => this.setState({ open: false }),
+      dropCam: () => {
+        const cur = Object.assign({ cams: 4 }, this.state || {}).cams;
+        if (cur <= 1) return;
+        this.setState({ dropping: cur, open: true, mode: 'normal' });
+        clearTimeout(this.dropTimer);
+        this.dropTimer = setTimeout(() => this.setState({ cams: cur - 1, dropping: 0 }), 3000);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

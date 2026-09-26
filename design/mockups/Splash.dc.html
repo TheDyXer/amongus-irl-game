@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Full-screen splashes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&amp;family=Barlow:wght@500;700&amp;family=Luckiest+Guy&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#000;font-family:'Barlow',sans-serif;color:#e9eef6}
+.outlined{text-shadow:4px 0 0 #0b0e13,-4px 0 0 #0b0e13,0 4px 0 #0b0e13,0 -4px 0 #0b0e13,3px 3px 0 #0b0e13,-3px 3px 0 #0b0e13,3px -3px 0 #0b0e13,-3px -3px 0 #0b0e13,0 7px 0 #0b0e13}
+.band{transform-origin:50% 50%;animation:band .4s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes band{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.pop{animation:pop .5s ease-out .15s both}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+.spin{transform-origin:50% 50%;animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tumble{animation:tumble 8s linear infinite}
+@keyframes tumble{from{transform:translateX(-220px) rotate(0deg)}to{transform:translateX(1500px) rotate(600deg)}}
+.type{display:inline-block;white-space:nowrap;clip-path:inset(0 100% 0 0);animation:type 2.4s steps(25) .5s forwards}
+@keyframes type{to{clip-path:inset(0 0 0 0)}}
+.late{opacity:0;animation:fadein .6s ease-out 3.2s forwards}
+@keyframes fadein{to{opacity:1}}
+.rise{animation:rise 3s ease-out both}
+@keyframes rise{from{transform:translateY(-30px);opacity:0}to{transform:translateY(0);opacity:1}}
+</style>
+</helmet>
+<div style="width: 1280px; height: 784px; position: relative; overflow: hidden; background: #000000; font-family: 'Barlow', sans-serif; color: #e9eef6">
+  <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px; overflow: hidden; background: #000000">
+    <sc-if value="{{ isShh }}" hint-placeholder-val="{{ false }}">
+      <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px; background: #16060a; overflow: hidden">
+        <svg aria-hidden="true" class="spin" viewBox="-100 -100 200 200" style="position: absolute; left: 90px; top: -190px; width: 1100px; height: 1100px">
+          <path d="{{ rays }}" fill="#2c0b13"></path>
+        </svg>
+        <svg aria-hidden="true" class="pop" viewBox="0 0 130 124" style="position: absolute; left: 470px; top: 60px; width: 350px; height: 334px">
+          <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="#C61111" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+          <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#C61111"></path>
+          <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#7A0838"></path>
+          <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+          <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+          <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+          <rect x="103" y="20" width="11" height="40" rx="5.5" fill="#ffffff" stroke="#0b0e13" stroke-width="4"></rect>
+          <rect x="93" y="50" width="30" height="26" rx="10" fill="#ffffff" stroke="#0b0e13" stroke-width="4"></rect>
+        </svg>
+        <div class="pop" style="position: absolute; left: 0; right: 0; top: 440px; text-align: center">
+          <span class="outlined" style="font-family: 'Luckiest Guy', sans-serif; font-size: 150px; line-height: 1; letter-spacing: 6px; color: #ffffff">SHHHHHHH!</span>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isEmergency }}" hint-placeholder-val="{{ true }}">
+      <div class="band" style="position: absolute; left: 0; top: 180px; width: 1280px; height: 360px">
+        <svg aria-hidden="true" viewBox="0 0 1280 360" preserveAspectRatio="none" style="position: absolute; left: 0; top: 0; width: 1280px; height: 360px">
+          <path d="{{ jag }}" fill="#c01818"></path>
+          <rect x="0" y="30" width="1280" height="300" fill="#141a24"></rect>
+        </svg>
+        <svg aria-hidden="true" viewBox="0 0 100 124" style="position: absolute; left: 150px; top: 34px; width: 210px; height: 260px">
+          <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="#F6F657" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+          <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#F6F657"></path>
+          <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#C38822"></path>
+          <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+          <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+          <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+        </svg>
+        <svg aria-hidden="true" viewBox="0 0 200 124" style="position: absolute; left: 290px; top: 186px; width: 240px; height: 149px">
+          <rect x="10" y="80" width="180" height="36" rx="10" fill="#4e5a6c" stroke="#0b0e13" stroke-width="7"></rect>
+          <rect x="48" y="46" width="104" height="44" rx="8" fill="#b81818" stroke="#0b0e13" stroke-width="7"></rect>
+          <ellipse cx="100" cy="48" rx="52" ry="16" fill="#ff4747" stroke="#0b0e13" stroke-width="7"></ellipse>
+          <ellipse cx="96" cy="30" rx="24" ry="15" fill="#ffffff" stroke="#0b0e13" stroke-width="6"></ellipse>
+        </svg>
+        <div class="pop" style="position: absolute; left: 590px; top: 62px; display: flex; flex-direction: column">
+          <span class="outlined" style="font-family: 'Luckiest Guy', sans-serif; font-size: 112px; line-height: 1.05; letter-spacing: 3px; color: #ff3b30">EMERGENCY</span>
+          <span class="outlined" style="font-family: 'Luckiest Guy', sans-serif; font-size: 112px; line-height: 1.05; letter-spacing: 3px; color: #ff3b30">MEETING!</span>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isBody }}" hint-placeholder-val="{{ false }}">
+      <div class="band" style="position: absolute; left: 0; top: 180px; width: 1280px; height: 360px">
+        <svg aria-hidden="true" viewBox="0 0 1280 360" preserveAspectRatio="none" style="position: absolute; left: 0; top: 0; width: 1280px; height: 360px">
+          <path d="{{ jag }}" fill="#c01818"></path>
+          <rect x="0" y="30" width="1280" height="300" fill="#141a24"></rect>
+        </svg>
+        <svg aria-hidden="true" viewBox="0 0 100 124" style="position: absolute; left: 110px; top: 50px; width: 200px; height: 248px">
+          <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="#50F039" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+          <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#50F039"></path>
+          <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#15A842"></path>
+          <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+          <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+          <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+        </svg>
+        <svg aria-hidden="true" viewBox="0 0 100 124" style="position: absolute; left: 320px; top: 100px; width: 190px; height: 236px">
+          <path d="M58 72 L58 42" stroke="#0b0e13" stroke-width="16" stroke-linecap="round" fill="none"></path>
+          <path d="M58 72 L58 42" stroke="#f4efe4" stroke-width="8" stroke-linecap="round" fill="none"></path>
+          <circle cx="52" cy="38" r="8" fill="#f4efe4" stroke="#0b0e13" stroke-width="4"></circle>
+          <circle cx="64" cy="38" r="8" fill="#f4efe4" stroke="#0b0e13" stroke-width="4"></circle>
+          <path d="M24 72 L34 64 L44 74 L55 64 L66 74 L78 64 L92 72 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#EE54BB"></path>
+          <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#AC2BAE"></path>
+          <path d="M24 72 L34 64 L44 74 L55 64 L66 74 L78 64 L92 72 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+        </svg>
+        <div class="pop" style="position: absolute; left: 590px; top: 62px; display: flex; flex-direction: column">
+          <span class="outlined" style="font-family: 'Luckiest Guy', sans-serif; font-size: 112px; line-height: 1.05; letter-spacing: 3px; color: #ff3b30">DEAD BODY</span>
+          <span class="outlined" style="font-family: 'Luckiest Guy', sans-serif; font-size: 112px; line-height: 1.05; letter-spacing: 3px; color: #ff3b30">REPORTED</span>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isEject }}" hint-placeholder-val="{{ false }}">
+      <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px; background: #05060d; overflow: hidden">
+        <sc-for list="{{ stars }}" as="st" hint-placeholder-count="30">
+          <div style="position: absolute; left: {{st.x}}px; top: {{st.y}}px; width: {{st.s}}px; height: {{st.s}}px; background: #ffffff; opacity: {{st.o}}"></div>
+        </sc-for>
+        <div class="tumble" style="position: absolute; left: 0; top: 110px; width: 150px; height: 186px">
+          <svg aria-hidden="true" viewBox="0 0 100 124" style="width: 150px; height: 186px">
+            <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="#F07D0D" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+            <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#F07D0D"></path>
+            <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="#B43E15"></path>
+            <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+            <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+            <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+          </svg>
+        </div>
+        <div style="position: absolute; left: 0; right: 0; top: 340px; display: flex; justify-content: center">
+          <span class="type" style="font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 54px; color: #ffffff">PLAYER 5 was An Impostor.</span>
+        </div>
+        <div class="late" style="position: absolute; left: 0; right: 0; top: 430px; text-align: center; font-size: 32px; font-weight: 500; color: #c9d3e1">1 Impostor remains.</div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isWin }}" hint-placeholder-val="{{ false }}">
+      <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px; background: #000000; overflow: hidden">
+        <svg aria-hidden="true" viewBox="0 0 1280 720" style="position: absolute; left: 0; top: 0; width: 1280px; height: 720px">
+          <ellipse cx="640" cy="560" rx="470" ry="150" fill="{{ win.floor }}"></ellipse>
+        </svg>
+        <div class="rise" style="position: absolute; left: 0; right: 0; top: 56px; text-align: center">
+          <span class="outlined" style="font-family: 'Luckiest Guy', sans-serif; font-size: 120px; line-height: 1; letter-spacing: 4px; color: {{ win.color }}">{{ win.title }}</span>
+        </div>
+        <div style="position: absolute; left: 0; right: 0; top: 214px; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 34px; letter-spacing: 3px; color: #d5dde8">{{ win.sub }}</div>
+        <sc-for list="{{ win.crew }}" as="m" hint-placeholder-count="5">
+          <svg aria-hidden="true" viewBox="0 0 100 124" style="position: absolute; left: {{m.x}}px; top: {{m.y}}px; width: {{m.w}}px; height: {{m.h}}px; opacity: {{m.o}}">
+            <path d="M6 44 Q6 38 12 38 L24 38 L24 90 L12 90 Q6 90 6 84 Z" fill="{{m.c}}" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+            <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{m.c}}"></path>
+            <path d="M24 74 Q32 100 55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="{{m.s}}"></path>
+            <path d="M24 112 L24 50 C24 22 42 8 58 8 C76 8 92 22 92 48 L92 112 Q92 118 86 118 L67 118 Q61 118 61 112 L61 100 L55 100 L55 112 Q55 118 49 118 L30 118 Q24 118 24 112 Z" fill="none" stroke="#0b0e13" stroke-width="6" stroke-linejoin="round"></path>
+            <rect x="50" y="24" width="48" height="28" rx="14" fill="#95CADC" stroke="#0b0e13" stroke-width="6"></rect>
+            <rect x="70" y="29" width="18" height="7" rx="3.5" fill="#ffffff" opacity="0.85"></rect>
+          </svg>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+  <div style="position: absolute; left: 0; top: 720px; width: 1280px; height: 64px; box-sizing: border-box; padding: 0 16px; display: flex; align-items: center; gap: 10px; background: #10151f; border-top: 3px solid #0b0e13; font-family: 'Barlow Condensed', sans-serif">
+    <span style="font-weight: 800; font-size: 17px; letter-spacing: 2px; color: #a9b4c3; margin-right: 6px">PREVIEW CONTROLS</span>
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+      <button onClick="{{ t.pick }}" aria-pressed="{{ t.pressed }}" style="height: 44px; padding: 0 14px; border: 3px solid #0b0e13; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 1px; text-transform: uppercase; background: {{t.bg}}; color: {{t.fg}}; cursor: pointer">{{ t.label }}</button>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":784}}'>
+class Component extends DCLogic {
+  rng(seed) {
+    let x = seed;
+    return () => {
+      x = (x * 16807) % 2147483647;
+      return (x - 1) / 2147483646;
+    };
+  }
+  renderVals() {
+    const s = Object.assign({ tab: 'emergency' }, this.state || {});
+    const tab = s.tab;
+    let rays = '';
+    for (let k = 0; k < 14; k++) {
+      const a = (k * 360) / 14;
+      const p1 = ((a - 7) * Math.PI) / 180;
+      const p2 = ((a + 7) * Math.PI) / 180;
+      rays += 'M0 0 L' + (Math.cos(p1) * 160).toFixed(1) + ' ' + (Math.sin(p1) * 160).toFixed(1) + ' L' + (Math.cos(p2) * 160).toFixed(1) + ' ' + (Math.sin(p2) * 160).toFixed(1) + ' Z ';
+    }
+    let jag = 'M0 30';
+    for (let x = 0; x < 1280; x += 40) jag += ' L' + (x + 20) + ' 4 L' + (x + 40) + ' 30';
+    jag += ' L1280 330';
+    for (let x = 1280; x > 0; x -= 40) jag += ' L' + (x - 20) + ' 356 L' + (x - 40) + ' 330';
+    jag += ' Z';
+    const r = this.rng(11);
+    const stars = [];
+    for (let i = 0; i < 110; i++) {
+      stars.push({ x: Math.floor(r() * 1280), y: Math.floor(r() * 720), s: r() < 0.2 ? 3 : 2, o: (0.35 + r() * 0.6).toFixed(2) });
+    }
+    const crewWin = {
+      title: 'CREWMATES WIN',
+      color: '#8CFFFF',
+      floor: '#111f1f',
+      sub: 'ALL TASKS COMPLETED',
+      crew: [
+        { x: 220, y: 330, w: 120, h: 149, c: '#38FFDD', s: '#24A9BF', o: 1 },
+        { x: 940, y: 330, w: 120, h: 149, c: '#F6F657', s: '#C38822', o: 1 },
+        { x: 370, y: 360, w: 150, h: 186, c: '#50F039', s: '#15A842', o: 1 },
+        { x: 760, y: 360, w: 150, h: 186, c: '#EE54BB', s: '#AC2BAE', o: 0.6 },
+        { x: 545, y: 390, w: 190, h: 236, c: '#C61111', s: '#7A0838', o: 1 }
+      ]
+    };
+    const impWin = {
+      title: 'IMPOSTORS WIN',
+      color: '#FF1919',
+      floor: '#1f0506',
+      sub: 'THE IMPOSTORS MATCHED THE LIVING CREW',
+      crew: [
+        { x: 430, y: 360, w: 190, h: 236, c: '#132ED2', s: '#09158E', o: 1 },
+        { x: 660, y: 360, w: 190, h: 236, c: '#F07D0D', s: '#B43E15', o: 1 }
+      ]
+    };
+    const defs = [
+      { id: 'shh', label: 'Shhhhh' },
+      { id: 'emergency', label: 'Emergency meeting' },
+      { id: 'body', label: 'Dead body reported' },
+      { id: 'eject', label: 'Ejection' },
+      { id: 'crew', label: 'Crewmates win' },
+      { id: 'imp', label: 'Impostors win' }
+    ];
+    const tabs = defs.map((d) => ({
+      label: d.label,
+      bg: d.id === tab ? '#8CFFFF' : '#2b3445',
+      fg: d.id === tab ? '#07131a' : '#e9eef6',
+      pressed: d.id === tab ? 'true' : 'false',
+      pick: () => this.setState({ tab: d.id })
+    }));
+    return {
+      isShh: tab === 'shh',
+      isEmergency: tab === 'emergency',
+      isBody: tab === 'body',
+      isEject: tab === 'eject',
+      isWin: tab === 'crew' || tab === 'imp',
+      win: tab === 'imp' ? impWin : crewWin,
+      rays: rays,
+      jag: jag,
+      stars: stars,
+      tabs: tabs
+    };
+  }
+}
+</script>
+</body>
+</html>
