@@ -1,0 +1,36 @@
+:root {
+  --c-space: #05060d;
+  --c-bg: #0b0f16;
+  --c-panel: #10151f;
+  --c-card: #141a24;
+  --c-card-2: #1a2130;
+  --c-steel: #4e5a6c;
+  --c-neutral: #2b3445;
+  --c-ink: #0b0e13;
+  --c-text: #e9eef6;
+  --c-text-2: #d5dde8;
+  --c-text-3: #c9d3e1;
+  --c-muted: #a9b4c3;
+  --c-cyan: #8cffff;
+  --c-cyan-ink: #07131a;
+  --c-cyan-bg: #0e2a33;
+  --c-impostor: #ff1919;
+  --c-alert: #ff3b30;
+  --c-green: #43d15d;
+  --c-green-ink: #07210e;
+  --c-green-2: #58f07a;
+  --c-amber: #ffb020;
+  --c-yellow: #ffd400;
+  --c-orange: #f07d0d;
+
+  /* Lilita One has no ő/ű (its latin-ext subset is only Š Ž Ł Ÿ ƒ): Luckiest Guy draws them. */
+  --f-splash: 'Luckiest Guy', 'Lilita One', sans-serif;
+  --f-title: 'Lilita One', 'Luckiest Guy', sans-serif;
+  --f-ui: 'Barlow Condensed', sans-serif;
+  --f-body: 'Barlow', sans-serif;
+  --f-mono: 'VT323', monospace;
+
+  --w-outline: 3px;
+  --r-card: 16px;
+  --r-btn: 12px;
+}
